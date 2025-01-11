@@ -131,18 +131,14 @@ function actualizarPromedioYDesempeno(fila) {
   let suma = 0;
   let count = 0;
 
-  $(fila)
-    .find(".entrada")
-    .each(function () {
-      const valor = parseFloat($(this).val());
-      if (!isNaN(valor) && valor >= 1.0 && valor <= 5.0) {
-        suma += valor;
-        count++;
-      } else {
-        alert("Ingrese un valor válido entre 1.0 y 5.0.");
-        $(this).val("");
-      }
-    });
+  const valor = parseFloat(fila.value);
+  if (!isNaN(valor) && valor >= 1.0 && valor <= 5.0) {
+    suma += valor;
+    count++;
+  } else {
+    alert("Ingrese un valor válido entre 1.0 y 5.0.");
+    $(this).val("");
+  }
 
   const promedio = count > 0 ? (suma / count).toFixed(2) : "";
 
