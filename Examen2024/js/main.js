@@ -71,7 +71,10 @@ function AdicionarColumna() {
   ultimoNumeroIngresado += cantidadNotas;
 
   const ColumnasActuales = $("#tabla1 tr:first th").length - 2;
-
+  $("#tabla1 tr").each(function () {
+    if ($(this).find("td, th").length < 4) return;
+    $(this).find("td, th").slice(-2).remove();
+  });
   $("#tabla1 tr").each(function (indice, columna) {
     if (indice === 0) {
       for (let i = 1; i <= cantidadNotas; i++) {
@@ -80,12 +83,8 @@ function AdicionarColumna() {
         );
       }
 
-      if (!$(columna).find("th:contains('Promedio')").length) {
-        $(columna).append("<th>Promedio</th>");
-      }
-      if (!$(columna).find("th:contains('Desempeño')").length) {
-        $(columna).append("<th>Desempeño</th>");
-      }
+      $(columna).append("<th>Promedio</th>");
+      $(columna).append("<th>Desempeño</th>");
     } else {
       const codalu = $(columna).find("td:first").text();
 
@@ -139,7 +138,7 @@ function actualizarPromedioYDesempeno(fila) {
       if (!isNaN(valor) && valor >= 1.0 && valor <= 5.0) {
         suma += valor;
         count++;
-      } else if ($(this).val() != "") {
+      } else {
         alert("Ingrese un valor válido entre 1.0 y 5.0.");
         $(this).val("");
       }
